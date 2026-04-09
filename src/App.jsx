@@ -27,8 +27,6 @@ function App() {
   const [phase, setPhase]       = useState("tutorial")
   const [sequence, setSequence] = useState([])
   const [round, setRound]       = useState(0)
-  const [activeCell, setActiveCell] = useState(null)
-  const [activeChar, setActiveChar] = useState("")
   const [score, setScore]       = useState(0)
   const [streak, setStreak]     = useState(0)
   const [playing, setPlaying]   = useState(false)
@@ -55,8 +53,6 @@ function App() {
     setFeedback("")
     setCanAnswer(false)
     setAnswered(false)
-    setActiveCell(null)
-    setActiveChar("")
     savedRef.current = false
     setPhase("playing")
     setPlaying(true)
@@ -76,8 +72,6 @@ function App() {
         if (prev >= TOTAL_ROUNDS) {
           clearInterval(intervalRef.current)
           setPlaying(false)
-          setActiveCell(null)
-          setActiveChar("")
           setPhase("results")
           return prev
         }
@@ -88,8 +82,6 @@ function App() {
 
         setSequence(seq => {
           const updated = [...seq, newItem]
-          setActiveCell(newItem.cell)
-          setActiveChar(newItem.char)
           // Unlock answer buttons after a brief display delay
           if (updated.length > levelRef.current) {
             setTimeout(() => setCanAnswer(true), 400)
@@ -157,6 +149,11 @@ function App() {
   }
 
   // ── Shared styles ────────────────────────────────────────────────────────
+  // Derive active cell/char directly from sequence — guaranteed in sync with comparison logic
+  const currentItem = playing ? (sequence[sequence.length - 1] ?? null) : null
+  const activeCell = currentItem?.cell ?? null
+  const activeChar = currentItem?.char ?? ""
+
   const hasHistory = loadHistory().length > 0
 
   const card = {
