@@ -1,38 +1,37 @@
 function Scoreboard({ level, round, totalRounds, score, streak }) {
-    const statStyle = {
-      textAlign: "center",
-      minWidth: "60px",
-    }
-    const labelStyle = {
-      fontSize: "12px",
-      color: "#888",
-      marginBottom: "4px",
-    }
-    const valueStyle = {
-      fontSize: "22px",
-      fontWeight: "500",
-    }
-  
-    return (
-      <div style={{ display: "flex", gap: "32px", justifyContent: "center" }}>
-        <div style={statStyle}>
-          <div style={labelStyle}>Level</div>
-          <div style={valueStyle}>{level}-Back</div>
+  const stats = [
+    { label: "Level",  value: `${level}-Back` },
+    { label: "Round",  value: `${round}/${totalRounds}` },
+    { label: "Score",  value: `${score}%` },
+    { label: "Streak", value: streak },
+  ]
+
+  return (
+    <div style={{
+      display: "flex",
+      width: "100%",
+      background: "var(--surface)",
+      borderRadius: 10,
+      border: "1px solid var(--border)",
+      overflow: "hidden",
+    }}>
+      {stats.map(({ label, value }, i) => (
+        <div key={label} style={{
+          flex: 1,
+          textAlign: "center",
+          padding: "10px 6px",
+          borderRight: i < stats.length - 1 ? "1px solid var(--border)" : "none",
+        }}>
+          <div style={{ fontSize: 10, color: "var(--text-3)", marginBottom: 2, textTransform: "uppercase", letterSpacing: "0.6px" }}>
+            {label}
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 600, color: "var(--primary-dark)" }}>
+            {value}
+          </div>
         </div>
-        <div style={statStyle}>
-          <div style={labelStyle}>Round</div>
-          <div style={valueStyle}>{round} / {totalRounds}</div>
-        </div>
-        <div style={statStyle}>
-          <div style={labelStyle}>Score</div>
-          <div style={valueStyle}>{score}%</div>
-        </div>
-        <div style={statStyle}>
-          <div style={labelStyle}>Streak</div>
-          <div style={valueStyle}>{streak}</div>
-        </div>
-      </div>
-    )
-  }
-  
-  export default Scoreboard
+      ))}
+    </div>
+  )
+}
+
+export default Scoreboard
