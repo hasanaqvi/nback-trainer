@@ -1,16 +1,48 @@
-# React + Vite
+# N-Back Trainer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Dual N-Back cognitive training app built with React and Vite. Train your working memory by tracking sequences of positions and letters across time.
 
-Currently, two official plugins are available:
+## What is Dual N-Back?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Every 2.5 seconds, a character flashes in one of 9 cells on a grid. Your job is to identify whether the **position**, **letter**, or **both** match what appeared N steps ago. The default starting level is 1-Back (compare to 1 step ago). As your accuracy improves, the level increases automatically — up to 5-Back.
 
-## React Compiler
+## Scoring & Level Progression
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Score | Result |
+|-------|--------|
+| ≥ 80% | Level up next session |
+| 50–79% | Stay at current level |
+| < 50% | Drop down one level |
 
-## Expanding the ESLint configuration
+Each session is 20 rounds. Your level and session history are saved locally in the browser.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Answer Buttons
+
+| Button | Correct when… |
+|--------|---------------|
+| **Position match** | The same cell is highlighted as N steps ago |
+| **Letter match** | The same character appeared N steps ago |
+| **Both match** | Both cell and character match N steps ago |
+| **No match** | Neither matches — or just do nothing |
+
+## Features
+
+- Adaptive difficulty (1-Back through 5-Back)
+- Countdown bar showing time remaining in each round
+- History trail highlighting the N-back target item
+- Session history and accuracy chart saved in `localStorage`
+- Colour-coded feedback on the grid (green = correct, red = wrong)
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173).
+
+## Tech Stack
+
+- [React 19](https://react.dev)
+- [Vite 8](https://vite.dev)
