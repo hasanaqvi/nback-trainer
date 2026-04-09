@@ -137,8 +137,8 @@ function App() {
     const charMatch = current.char === target.char
 
     let isCorrect = false
-    if (type === "position") isCorrect = posMatch  && !charMatch
-    if (type === "letter")   isCorrect = charMatch && !posMatch
+    if (type === "position") isCorrect = posMatch
+    if (type === "letter")   isCorrect = charMatch
     if (type === "both")     isCorrect = posMatch  && charMatch
     if (type === "none")     isCorrect = !posMatch && !charMatch
 
@@ -212,8 +212,8 @@ function App() {
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 7, paddingTop: 12, borderTop: "1px solid var(--border)" }}>
               {[
-                ["Position match", "Same cell, different character"],
-                ["Letter match",   "Same character, different cell"],
+                ["Position match", "Same cell (letter may also match)"],
+                ["Letter match",   "Same character (position may also match)"],
                 ["Both match",     "Same cell AND same character"],
                 ["No match",       "Nothing matches — skip or press no match"],
               ].map(([label, desc]) => (
